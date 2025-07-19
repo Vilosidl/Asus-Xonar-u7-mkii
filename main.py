@@ -12,14 +12,14 @@ PORT = 65432
 
 dev = usb.core.find(idVendor=VID, idProduct=PID)
 if dev is None:
-    raise ValueError("Устройство не найдено")
+    raise ValueError("Device not found")
 
 try:
     if dev.is_kernel_driver_active(4):
         dev.detach_kernel_driver(4)
 
 except Exception as e:
-    print(f"Не удалось отсоединить драйвер ядра: {e}")
+    print(f"Failed to detach kernel driver: {e}")
 
 def get_volume():
     try:
@@ -34,11 +34,11 @@ def get_volume():
             right_volume = output.split()[11]
             return left_volume, right_volume
         else:
-            print(f"Ошибка: {result.stderr.strip()}")
+            print(f"Error: {result.stderr.strip()}")
             return None
 
     except Exception as e:
-        print(f"Произошла ошибка: {e}")
+        print(f"An error occurred: {e}")
         return None
 
 def set_volume(status):
@@ -53,10 +53,10 @@ def set_volume(status):
 def toggle(data):
     if data[10] == 48:
         set_volume(0)
-        subprocess.run(['notify-send', 'Переключение на наушники'])
+        subprocess.run(['notify-send', 'Switched to headphones'])
     elif data[10] == 160:
         set_volume(1)
-        subprocess.run(['notify-send', 'Переключение на динамики'])
+        subprocess.run(['notify-send', 'Switched to speakers'])
 
 def handle_client(conn, addr):
     print(f"Connected by {addr}")
@@ -84,7 +84,7 @@ def data_strip():
         data_write = array.array(typecode, values)
         return data_write
     else:
-        raise ValueError("Неправильный формат файла")
+        raise ValueError("Invalid data file format")
 
 def change_output():
     data_write = data_strip()

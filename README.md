@@ -134,17 +134,3 @@ Daemon listening on 127.0.0.1:65432
 Connected by ('127.0.0.1', 54321)
 Received command: change
 ```
-
----
-
-## 💡 Future Improvements
-
-- Add DBus or HTTP interface
-- Config file for sink name and port
-- Multi-device or multi-profile support
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
